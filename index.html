@@ -1,0 +1,38 @@
+<html ng-app="pomodoroApp">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
+        <script src="pomodoro.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css" integrity="sha384-wxqG4glGB3nlqX0bi23nmgwCSjWIW13BdLUEYC4VIMehfbcro/ATkyDsF/AbIOVe" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+
+    <h2>Pomodor Technique Timer</h2>
+    <div ng-controller="TomatoController as tomatoController">
+        <div class="row">
+            <span class="time">
+                <span class="minutes">0</span> : <span class="seconds">3</span>
+            </span>
+        </div>
+        <div class="row">
+            <span class="checkbox-1"><img src="empty_checkbox.png" class="empty-checkbox"></span>
+            <span class="checkbox-2"><img src="empty_checkbox.png" class="empty-checkbox"></span>
+            <span class="checkbox-3"><img src="empty_checkbox.png" class="empty-checkbox"></span>
+            <span class="checkbox-4"><img src="empty_checkbox.png" class="empty-checkbox"></span>
+        </div>
+        <div class="row">
+            <span>
+                <button type="button" class="btn btn-success start-btn" ng-click="tomatoController.start()">Start</button>
+            </span>
+            
+            <span class="pause-button-container">
+                <button type="button" class="btn btn-secondary pause-btn" ng-click="tomatoController.pause()">Pause</button>
+            </span>
+        </div>
+        <div class="row">
+            <img src="lil_tomato.png" class="lil_tomato.png">
+        </div>
+    </div>
+</html>
