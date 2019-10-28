@@ -47,50 +47,69 @@ angular.module('pomodoroApp', [])
         if (model.checkBoxes[0].checked === false){
             model.checkBoxes[0].checked = true;
             $('.checkbox-1 img').attr('src', 'checked_checkbox.PNG');
-            $('.seconds').text('00');
-            $('.minutes').text('05');
+            playSound();
+            setTime(5);
             model.onBreak = true;
 
         } else if (model.checkBoxes[1].checked === false){
             if (model.onBreak == true){
-                $('.seconds').text('00');
-                $('.minutes').text('25');
+                playSound();
+                setTime(25);
                 model.onBreak = false;
             } else {
                 model.checkBoxes[1].checked = true;
                 $('.checkbox-2 img').attr('src', 'checked_checkbox.PNG');
-                $('.seconds').text('00');
-                $('.minutes').text('05');
+                playSound();
+                setTime(5);
                 model.onBreak = true;
             }
 
         } else if (model.checkBoxes[2].checked === false){
             if (model.onBreak == true){
-                $('.seconds').text('00');
-                $('.minutes').text('25');
+                playSound();
+                setTime(25);
                 model.onBreak = false;
             } else {
                 model.checkBoxes[2].checked = true;
                 $('.checkbox-3 img').attr('src', 'checked_checkbox.PNG');
-                $('.seconds').text('00');
-                $('.minutes').text('05');
+                playSound();
+                setTime(5);
+                model.onBreak = true;
             }
 
-        } else {
+        } else if (model.checkBoxes[3].checked === false) {
             if (model.onBreak == true){
-                $('.seconds').text('00');
-                $('.minutes').text('25');
+                playSound();
+                setTime(25);
                 model.onBreak = false;
             } else {
                 model.checkBoxes[3].checked = true;
                 $('.checkbox-4 img').attr('src', 'checked_checkbox.PNG');
-                $('.seconds').text('00');
-                $('.minutes').text('30');
-
-                var sound = new Audio('shortbeep.wav');
-                sound.play();
+                playSound();
+                setTime(30);
+                model.onBreak = true;
             }
+        } else {
+            $('.checkbox-1 img').attr('src', 'empty_checkbox.PNG');
+            $('.checkbox-2 img').attr('src', 'empty_checkbox.PNG');
+            $('.checkbox-3 img').attr('src', 'empty_checkbox.PNG');
+            $('.checkbox-4 img').attr('src', 'empty_checkbox.PNG');
+
+            model.checkBoxes[0].checked = false;
+            model.checkBoxes[1].checked = false;
+            model.checkBoxes[2].checked = false;
+            model.checkBoxes[3].checked = false;
         }
+    }
+
+    function playSound(){
+        var sound = new Audio('shortbeep.wav');
+        sound.play();
+    }
+
+    function setTime(minutes){
+        $('.seconds').text('00');
+        $('.minutes').text('' + minutes + '');
     }
 });
 
