@@ -1,5 +1,6 @@
 angular.module('pomodoroApp', [])
     .controller('TomatoController', function(){
+
     var model = this;
 
     model.checkBoxes = [
@@ -111,5 +112,14 @@ angular.module('pomodoroApp', [])
         $('.seconds').text('00');
         $('.minutes').text('' + minutes + '');
     }
-});
-
+})
+// .config(function($sceDelegateProvider){
+//     $sceDelegateProvider.resourceUrlWhitelist([
+//         'self',
+//         'null'
+//     ])
+// })
+// .config(function($sceDelegateProvider){
+//     $sceDelegateProvider.enabled(false);
+//     $sceDelegateProvider.resourceUrlWhitelist(['self', 'file:///C:/Users/eenis/Documents/my%20stuff/GitHub/yet-another-pomodoro-timer/header.html']);
+// });
