@@ -13,6 +13,10 @@ angular.module('pomodoroApp', [])
     // possible values: 25, 5, 30
     model.currentTimer = 25;
     model.onBreak = false;
+    model.isPiPActive = false;
+    model.canvas = null;
+    model.ctx = null;
+    model.video = null;
 
     model.pause = function(){
         pauseTimer();
@@ -20,6 +24,20 @@ angular.module('pomodoroApp', [])
 
     model.start = function(){
         startTimer();
+    };
+
+    model.togglePiP = function(){
+        alert('PiP Mode toggled');
+
+        if (!document.pictureInPictureSupported) {
+            alert('Picture-in-Picture not supported in this browser');
+            return;
+        }
+        if (!model.isPiPActive) {
+            enablePiP();
+        } else {
+            document.exitPictureInPicture();
+        }
     };
 
     var intervalId = '';
@@ -38,6 +56,10 @@ angular.module('pomodoroApp', [])
                 }
             }
         }, 1000);
+
+        if (model.isPiPActive) {
+            updatePiPCanvas();
+        }
     }
 
     function pauseTimer(){
@@ -111,6 +133,43 @@ angular.module('pomodoroApp', [])
     function setTime(minutes){
         $('.seconds').text('00');
         $('.minutes').text('' + minutes + '');
+    }
+
+    function enablePiP(){
+        alert('Enabling PiP Mode');
+        model.canvas = document.getElementById('pipCanvas');
+        model.ctx = model.canvas.getContext('2d');
+        model.video = document.getElementById('pipVideo');
+        
+        const stream = model.canvas.captureStream(5);
+        model.video.srcObject = stream;
+        
+        model.video.onloadedmetadata = function() {
+            model.video.requestPictureInPicture().then(() => {
+                model.isPiPActive = true;
+                updatePiPCanvas();
+            });
+        };
+    }
+
+    function updatePiPCanvas(){
+        if (!model.isPiPActive) return;
+        
+        // Draw background
+        model.ctx.fillStyle = model.onBreak ? '#28a745' : '#dc3545';
+        model.ctx.fillRect(0, 0, model.canvas.width, model.canvas.height);
+        
+        // Draw timer
+        model.ctx.fillStyle = 'white';
+        model.ctx.font = 'bold 32px Arial';
+        model.ctx.textAlign = 'center';
+        const timeText = $('.minutes').text() + ':' + $('.seconds').text().padStart(2, '0');
+        model.ctx.fillText(timeText, model.canvas.width / 2, 50);
+        
+        // Draw status
+        model.ctx.font = '14px Arial';
+        const status = model.onBreak ? 'BREAK' : 'FOCUS';
+        model.ctx.fillText(status, model.canvas.width / 2, 80);
     }
 })
 // .config(function($sceDelegateProvider){

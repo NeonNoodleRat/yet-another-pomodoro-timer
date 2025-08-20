@@ -35,11 +35,18 @@
             <span class="pause-button-container">
                 <button type="button" class="btn btn-secondary pause-btn" ng-click="tomatoController.pause()">Pause</button>
             </span>
+
+            <span class="pause-button-container">
+                <button type="button" class="btn btn-info pip-btn" ng-click="tomatoController.togglePiP()">PiP Mode</button>
+            </span>
         </div>
         <div class="row">
             <img src="lil_tomato.png" class="lil_tomato.png">
         </div>
     </div>
+
+    <canvas id="pipCanvas" width="300" height="120" style="display: none;"></canvas>
+    <video id="pipVideo" muted autoplay style="display: none;"></video>
 </html>
 
 <script>
@@ -47,5 +54,14 @@
         $('#settings').click(function(){
             alert('SETTINGS from index page');
         });
+
+        if (document.getElementById('pipVideo')) {
+            document.getElementById('pipVideo').addEventListener('leavepictureinpicture', function() {
+                // Access the Angular controller
+                var scope = angular.element(document.querySelector('[ng-controller="TomatoController"]')).scope();
+                scope.tomatoController.isPiPActive = false;
+                scope.$apply();
+            });
+        }
     });
 </script>
